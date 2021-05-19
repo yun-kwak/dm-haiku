@@ -22,6 +22,7 @@ from haiku._src.base import custom_getter
 from haiku._src.base import GetterContext
 from haiku._src.dot import abstract_to_dot
 from haiku._src.dot import to_dot
+import haiku._src.jaxpr_info as jaxpr_info
 from haiku._src.lift import lift
 from haiku._src.module import intercept_methods
 from haiku._src.module import MethodContext
@@ -46,6 +47,7 @@ __all__ = (
     "custom_creator",
     "custom_getter",
     "intercept_methods",
+    "jaxpr_info",
     "lift",
     "MethodContext",
     "MethodInvocation",
