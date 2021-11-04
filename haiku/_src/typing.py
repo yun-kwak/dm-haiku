@@ -14,9 +14,12 @@
 # ==============================================================================
 """Haiku types."""
 
+import abc
 import typing
 from typing import Any, Callable, Mapping, Sequence
+
 import jax.numpy as jnp
+from typing_extensions import Protocol, runtime_checkable  # pylint: disable=multiple-statements,g-multiple-import
 
 # pytype: disable=module-attr
 try:
@@ -32,3 +35,39 @@ State = Mapping[str, Mapping[str, jnp.ndarray]]
 
 # Missing JAX types.
 PRNGKey = jnp.ndarray  # pylint: disable=invalid-name
+
+
+@runtime_checkable
+class ModuleProtocol(Protocol):
+  """Protocol for Module like types."""
+
+  @abc.abstractproperty
+  def name(self) -> str:
+    pass
+
+  @abc.abstractproperty
+  def module_name(self) -> str:
+    pass
+
+  @abc.abstractmethod
+  def params_dict(self) -> Mapping[str, jnp.array]:
+    pass
+
+  @abc.abstractmethod
+  def state_dict(self) -> Mapping[str, jnp.array]:
+    pass
+
+
+@runtime_checkable
+class SupportsCall(ModuleProtocol, Callable[..., Any], Protocol):
+  """Protocol for Module like types that are Callable.
+
+  Being a protocol means you don't need to explicitly extend this type in order
+  to support instance checks with it. For example, :class:`Linear` only extends
+  :class:`Module`, however since it conforms (e.g. implements ``__call__``) to
+  this protocol you can instance check using it::
+
+  >>> assert isinstance(hk.Linear(1), hk.SupportsCall)
+  """
+
+  pass

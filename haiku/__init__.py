@@ -112,8 +112,10 @@ from haiku._src.transform import TransformedWithState
 from haiku._src.transform import with_empty_state
 from haiku._src.transform import without_apply_rng
 from haiku._src.transform import without_state
+from haiku._src.typing import ModuleProtocol
 from haiku._src.typing import Params
 from haiku._src.typing import State
+from haiku._src.typing import SupportsCall
 
 __version__ = "0.0.6.dev"
 
@@ -152,6 +154,7 @@ __all__ = (
     "MaxPool",
     "MethodContext",
     "Module",
+    "ModuleProtocol",
     "MultiHeadAttention",
     "MultiTransformed",
     "MultiTransformedWithState",
@@ -165,6 +168,7 @@ __all__ = (
     "Sequential",
     "SpectralNorm",
     "State",
+    "SupportsCall",
     "Transformed",
     "TransformedWithState",
     "VanillaRNN",
